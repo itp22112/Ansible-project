@@ -1,0 +1,11 @@
+---
+local-vms:
+    hosts:
+        VMone:
+            ansible_host: VM1
+            
+    hosts:
+        UbuntuVM: 
+            ansible_host: Ubuntumm     
+            
+          

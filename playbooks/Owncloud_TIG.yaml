@@ -1,0 +1,34 @@
+---
+  - name: install Owncloud,Mysql,redis and TIG
+    hosts: UbuntuVM
+    become: yes # yes to change user
+    become_user: root #become root user
+    tasks:
+
+    - name: copy TIG to tmp
+      ansible.builtin.copy:
+        src: ../files/TIG
+        dest: /home/ubuntumm/Desktop/tmp/  #copy files from src to dest
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: copy Owncloud_files to tmp
+      ansible.builtin.copy:
+        src: ../files/Owncloud_files
+        dest: /home/ubuntumm/Desktop/tmp/  #copy files from src to dest
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Run docker compose TIG
+      become: True
+      shell:
+        cmd: "docker compose up -d"
+        chdir: /home/ubuntumm/Desktop/tmp/TIG
+   
+    - name: Run docker compose OWNCLOD
+      become: True
+      shell:
+        cmd: "docker compose up -d"
+        chdir: /home/ubuntumm/Desktop/tmp/Owncloud_files
